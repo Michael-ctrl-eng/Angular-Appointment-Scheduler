@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>{{ dialogTitle }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <div *ngIf="formGroup">
+      <div *ngFor="let sectionSchema of formSchema?.sections">  <!-- Iterate through sections -->
+        <fieldset *ngIf="!sectionSchema.condition || isSectionVisible(sectionSchema)"> <!-- Conditional section -->
+          <legend>{{ sectionSchema.label }}</legend>
+          <div *ngFor="let fieldSchema of sectionSchema.fields"> <!-- Iterate through fields in section -->
+            <app-dynamic-form-field [fieldSchema]="fieldSchema" [formGroup]="formGroup"></app-dynamic-form-field>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+    <div *ngIf="!formGroup">
+      <p>Loading form...</p> <mat-progress-spinner mode="indeterminate" diameter="30"></mat-progress-spinner>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close (click)="onCancelClick()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="formGroup?.invalid">Save</button>
+</mat-dialog-actions>
