@@ -1,0 +1,209 @@
+{
+  "title": "Appointment Details",
+  "description": "Enter appointment details",
+  "validators": ["validDateTimeRange"],
+  "sections": [
+    {
+      "name": "basicDetails",
+      "label": "Basic Details",
+      "fields": [
+        {
+          "name": "appointmentType",
+          "label": "Appointment Type",
+          "type": "select",
+          "options": [
+            { "value": "consultation", "label": "Consultation" },
+            { "value": "service", "label": "Service" },
+            { "value": "meeting", "label": "Meeting" },
+            { "value": "other", "label": "Other" }
+          ],
+          "validators": ["required"],
+          "ui": {
+            "component": "mat-select",
+            "appearance": "fill",
+            "placeholder": "Select Appointment Type"
+          }
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "inputType": "text",
+          "validators": ["required", "minLength:5", "maxLength:150", "pattern:^[a-zA-Z0-9\\s]*$"],
+          "validationMessages": {
+            "required": "Title is mandatory.",
+            "minLength": "Title must be at least 5 characters long.",
+            "maxLength": "Title cannot exceed 150 characters.",
+            "pattern": "Title contains invalid characters."
+          },
+          "ui": {
+            "component": "mat-input",
+            "appearance": "outline",
+            "placeholder": "Enter Appointment Title",
+            "hint": "Be concise and descriptive"
+          }
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "textarea",
+          "inputType": "textarea",
+          "validators": ["maxLength:1000"],
+          "validationMessages": {
+            "maxLength": "Description cannot exceed 1000 characters."
+          },
+          "ui": {
+            "component": "mat-textarea",
+            "appearance": "standard",
+            "hint": "Provide a brief description of the appointment (max 1000 chars)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "timeLocation",
+      "label": "Time & Location",
+      "fields": [
+        {
+          "name": "startTime",
+          "label": "Start Time",
+          "type": "datetime",
+          "validators": ["required"], // Removed validDateTimeRange here, FormGroup level validator is used
+          "validationMessages": {
+            "required": "Start Time is required."
+          },
+          "ui": {
+            "component": "mat-datepicker",
+            "appearance": "fill",
+            "placeholder": "Choose Start Date and Time"
+          }
+        },
+        {
+          "name": "endTime",
+          "label": "End Time",
+          "type": "datetime",
+          "validators": ["required"],
+          "validationMessages": {
+            "required": "End Time is required."
+          },
+          "ui": {
+            "component": "mat-datepicker",
+            "appearance": "fill",
+            "placeholder": "Choose End Date and Time"
+          }
+        },
+        {
+          "name": "location",
+          "label": "Location",
+          "type": "text",
+          "inputType": "text",
+          "ui": {
+            "component": "mat-input",
+            "appearance": "fill",
+            "placeholder": "Enter Location (optional)",
+            "hint": "e.g., Room Number, Clinic Address"
+          }
+        }
+      ]
+    },
+    {
+      "name": "recurrenceSection",
+      "label": "Recurrence",
+      "condition": {
+        "field": "isRecurring",
+        "values": [true, 'true', 1, '1']
+      },
+      "fields": [
+        {
+          "name": "isRecurring",
+          "label": "Recurring Appointment",
+          "type": "checkbox",
+          "defaultValue": false,
+          "ui": {
+            "component": "mat-slide-toggle"
+          }
+        },
+        {
+          "name": "recurrenceRule",
+          "label": "Recurrence Rule",
+          "type": "textarea",
+          "condition": {
+            "field": "isRecurring",
+            "values": [true, 'true', 1, '1']
+          },
+          "ui": {
+            "component": "mat-textarea",
+            "appearance": "fill",
+            "placeholder": "Enter Recurrence Rule (RRULE format - optional)",
+            "hint": "Define appointment recurrence (e.g., using iCalendar RRULE)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "advancedOptions",
+      "label": "Advanced Options",
+      "fields": [
+        {
+          "name": "attendees",
+          "label": "Attendees",
+          "type": "chips",
+          "ui": {
+            "component": "mat-autocomplete-chips",
+            "appearance": "fill",
+            "placeholder": "Add Attendees",
+            "hint": "Enter attendee names or emails"
+          }
+        },
+        {
+          "name": "notes",
+          "label": "Notes",
+          "type": "textarea",
+          "inputType": "textarea",
+          "ui": {
+            "component": "mat-textarea",
+            "appearance": "fill",
+            "placeholder": "Enter any notes about the appointment (optional)"
+          }
+        },
+        {
+          "name": "resourceId",
+          "label": "Resource",
+          "type": "select",
+          "options": [
+            { "value": "room-101", "label": "Room 101" },
+            { "value": "room-102", "label": "Room 102" },
+            { "value": "conf-room-a", "label": "Conference Room A" },
+            { "value": "conf-room-b", "label": "Conference Room B" }
+          ],
+          "validators": ["asyncResourceAvailable"],
+          "validationMessages": {
+            "asyncResourceAvailable": "Resource is not available at the selected time."
+          },
+          "ui": {
+            "component": "mat-select",
+            "appearance": "fill",
+            "placeholder": "Select Resource (optional)"
+          }
+        },
+        {
+          "name": "status",
+          "label": "Status",
+          "type": "select",
+          "options": [
+            { "value": "scheduled", "label": "Scheduled" },
+            { "value": "pending", "label": "Pending" },
+            { "value": "confirmed", "label": "Confirmed" },
+            { "value": "cancelled", "label": "Cancelled" },
+            { "value": "completed", "label": "Completed" }
+          ],
+          "ui": {
+            "component": "mat-select",
+            "appearance": "fill",
+            "placeholder": "Set Status"
+          }
+        }
+      ]
+    }
+  ]
+}
