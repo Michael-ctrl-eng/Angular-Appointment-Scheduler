@@ -1,0 +1,26 @@
+<h2>Appointment Calendar</h2>
+
+<div *ngIf="loading$ | async" class="loading-overlay">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+
+<div *ngIf="error$ | async" class="error-message">
+  <mat-icon color="warn">error</mat-icon>
+  <span>Error loading appointments. Please try again later.</span>
+</div>
+
+<div class="calendar-container" #calendarContainer *ngIf="!(loading$ | async) && !(error$ | async)">
+  <mwl-calendar-month-view
+    [viewDate]="viewDate"
+    [events]="events$ | async"
+    [activeDayIsOpen]="activeDayIsOpen"
+    (dayClicked)="dayClicked($event)"
+    (eventTimesChanged)="eventTimesChanged($event)"
+    [eventTemplate]="eventTemplate"
+  >
+  </mwl-calendar-month-view>
+
+  <ng-template #eventTemplate let-event="event">
+    <app-appointment-event-template [event]="event"></app-appointment-event-template>
+  </ng-template>
+</div>
