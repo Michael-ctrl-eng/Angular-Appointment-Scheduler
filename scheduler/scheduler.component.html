@@ -1,0 +1,36 @@
+<app-scheduler-toolbar
+    (viewChange)="onViewChange($event)"
+    (dateChange)="onDateChange($event)"
+    [viewDate]="selectedDate$ | async"> <!-- Pass selectedDate to toolbar -->
+</app-scheduler-toolbar>
+
+<div class="scheduler-content">
+  <ng-container [ngSwitch]="currentView">
+    <app-month-view *ngSwitchCase="'month'"
+                    [events]="events$ | async"
+                    [viewDate]="selectedDate$ | async"
+                    (eventClicked)="openEditDialog($event)"
+                    (addEventClicked)="openAddDialog($event)" <!-- Pass day's date to openAddDialog -->
+                    (viewDateChange)="onViewDateChangeFromMonth($event)"></app-month-view> <!-- Handle viewDateChange -->
+    <app-week-view *ngSwitchCase="'week'"
+                   [events]="events$ | async"
+                   [viewDate]="selectedDate$ | async"
+                   (eventClicked)="openEditDialog($event)"
+                   (addEventClicked)="openAddDialog()"></app-week-view>
+    <app-day-view *ngSwitchCase="'day'"
+                  [events]="events$ | async"
+                  [viewDate]="selectedDate$ | async"
+                  (eventClicked)="openEditDialog($event)"
+                  (addEventClicked)="openAddDialog()"></app-day-view>
+    <app-event-list *ngSwitchDefault
+                    [events]="events$ | async"
+                    [view]="currentView"
+                    [selectedDate]="selectedDate$ | async"
+                    (eventClicked)="openEditDialog($event)"
+                    (addEventClicked)="openAddDialog()"
+                    (deleteEvent)="deleteEvent($event)"></app-event-list>
+  </ng-container>
+</div>
+
+<app-event-form *ngIf="isEventFormDialogOpen" [dialogRef]="eventFormDialogRef"></app-event-form>
+<button mat-raised-button color="warn" (click)="logout()" class="logout-button">Logout</button>
