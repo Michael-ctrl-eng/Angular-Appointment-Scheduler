@@ -1,0 +1,21 @@
+<div class="month-view-container" role="grid" aria-label="Month View">
+  <div class="month-view-header" role="row">
+    <div class="month-view-column-header header-cell" role="columnheader" *ngFor="let header of columnHeaders; trackBy: trackByIndex">{{ header }}</div>
+  </div>
+  <div class="month-view-week" role="rowgroup" *ngFor="let week of [].constructor(6); let weekIndex = index; trackBy: trackByIndex"> <!-- Assumes max 6 weeks in a month -->
+    <div class="month-view-day" role="gridcell" *ngFor="let day of viewDays.slice(weekIndex * 7, (weekIndex + 1) * 7); trackBy: trackByViewDays"
+         [ngClass]="getDayClasses(day)"
+         (click)="onDayClick(day)"
+         tabindex="0"
+         aria-label="{{ day.date | date:'fullDate' }}">
+      <span class="day-number">{{ day.dayOfMonth }}</span>
+      <div class="event-indicator-container">
+        <span class="event-indicator" *ngFor="let event of day.events; let i = index; trackBy: trackByEvents; let isFirst = first; let isLast = last"
+              [style.marginTop.px]="i * 3"
+              [title]="event.title"
+              (click.stop)="onEventClick(event)"> <!-- Stop propagation to prevent day click -->
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
