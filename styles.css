@@ -1,0 +1,31 @@
+/* styles.css or component-specific CSS */
+
+/* Default focus indicator (outline) - Customize as needed */
+:focus {
+    outline: 2px solid Highlight; /* Browser default highlight color */
+    outline-offset: 2px; /* Add a small gap between outline and element */
+}
+
+/* Example: More styled focus indicator (background change and border) - Customize colors */
+button:focus,
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none; /* Remove default outline for custom style */
+    background-color: #e0e0e0; /* Light grey background on focus */
+    border: 2px solid #007bff; /* Blue border on focus */
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); /* Optional: subtle box-shadow for focus */
+    border-radius: 4px; /* Match element's border-radius */
+}
+
+/* Remove focus outlines on mouse click (optional - consider usability implications) */
+*:focus:not(:focus-visible) {
+    outline: none; /* Removes outline for mouse users but keeps it for keyboard navigation */
+}
+
+/* For browsers supporting :focus-visible (modern browsers) - Keep focus outline for keyboard navigation only */
+*:focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+}
