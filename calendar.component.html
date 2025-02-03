@@ -1,0 +1,51 @@
+<!-- calendar.component.html -->
+<header class="calendar-header">
+    <h2 id="calendar-title" tabindex="-1">{{ currentMonth | date:'MMMM yyyy' }}</h2>
+    <nav aria-labelledby="calendar-title">
+        <button aria-label="Previous Month" (click)="previousMonth()">
+            <span aria-hidden="true"><</span>
+            <span class="visually-hidden">Previous Month</span>
+        </button>
+        <button aria-label="Next Month" (click)="nextMonth()">
+            <span aria-hidden="true">></span>
+            <span class="visually-hidden">Next Month</span>
+        </button>
+    </nav>
+</header>
+
+<main class="calendar-main">
+    <section aria-label="Calendar Grid">
+        <table class="calendar-grid">
+            <thead>
+                <tr>
+                    <th scope="col" aria-label="Sunday">Sun</th>
+                    <th scope="col" aria-label="Monday">Mon</th>
+                    <th scope="col" aria-label="Tuesday">Tue</th>
+                    <th scope="col" aria-label="Wednesday">Wed</th>
+                    <th scope="col" aria-label="Thursday">Thu</th>
+                    <th scope="col" aria-label="Friday">Fri</th>
+                    <th scope="col" aria-label="Saturday">Sat</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let week of calendarDays">
+                    <td *ngFor="let day of week" class="calendar-day"
+                        [class.today]="isToday(day)"
+                        [class.has-appointments]="hasAppointments(day)">
+                        <button class="day-button"
+                                [disabled]="!isCurrentMonth(day)"
+                                (click)="selectDay(day)">
+                            {{ day | date:'d' }}
+                            <span *ngIf="hasAppointments(day)" class="appointment-indicator" aria-hidden="true">*</span>
+                            <span *ngIf="hasAppointments(day)" class="visually-hidden">Appointments available</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<footer class="calendar-footer">
+    <p>Displaying appointments for {{ currentMonth | date:'MMMM yyyy' }}</p>
+</footer>
