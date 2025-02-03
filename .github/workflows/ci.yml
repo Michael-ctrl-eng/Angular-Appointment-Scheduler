@@ -1,0 +1,23 @@
+name: CI - Lint & Format
+
+on:
+  push:
+    branches: [ main, develop ] # Or your main branches
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  lint-format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18 # Or your project's Node.js version
+      - name: Install Dependencies
+        run: npm install
+      - name: Lint
+        run: npm run lint -- --max-warnings=0 --strict
+      - name: Format Check
+        run: npm run format -- --check # Use --check to only check, not write
