@@ -1,89 +1,129 @@
 # Angular Appointment Scheduler
 
-This project is a simple and intuitive appointment scheduler built using Angular. It provides a user-friendly interface to manage appointments, allowing users to easily create, view, update, and delete appointments within a calendar view.  This project serves as a practical example of building a front-end application with Angular and demonstrates core concepts like component-based architecture, reactive forms, and data handling (potentially mocked or requiring backend integration).
+A simple and responsive appointment scheduling application built with Angular and Firebase.
 
 ## Features
 
-* **Intuitive Calendar View:**  Displays appointments in a clear and easy-to-navigate calendar format (likely day, week, or month view).
-* **Create Appointments:**  Allows users to create new appointments with details such as:
-    * Title/Subject
-    * Date and Time (start and end)
-    * Description/Notes
-* **View Appointments:** Easily view all scheduled appointments within the calendar.
-* **Update Appointments:**  Provides functionality to modify existing appointment details.
-* **Delete Appointments:**  Allows users to remove appointments from the schedule.
-* **Responsive Design (Likely):**  Designed to be usable on various screen sizes (though specific responsiveness may vary).
-* **Angular Based:** Built using the Angular framework, showcasing best practices in Angular development.
-* **Learning Resource:**  A great project for learning Angular and understanding how to build a basic scheduling application.
+*   **Appointment Scheduling:** Create, Read, Update, and Delete (CRUD) appointments.
+*   **Drag and Drop Rescheduling:** Easily reschedule appointments by dragging and dropping them on the calendar.
+*   **Calendar View:**  Visual display of appointments using a calendar component.
+*   **Responsive Design:** Works well on desktops, tablets, and mobile devices.
+*   **Firebase Backend:** Uses Google Firebase for backend services (Firestore and Authentication).
+*   **Angular Material UI:**  Modern and consistent user interface using Angular Material components.
 
-## Getting Started
+## Technologies Used
 
-Follow these steps to get the Angular Appointment Scheduler running on your local machine.
+*   **Frontend:**
+    *   [Angular](https://angular.io/) -  A powerful JavaScript framework for building web applications.
+    *   [Angular Material](https://material.angular.io/) - UI component library for Angular.
+    *   [FullCalendar Angular](https://fullcalendar.io/angular) - JavaScript calendar library for Angular.
+    *   [RxJS](https://rxjs.dev/) - Reactive Extensions Library for JavaScript.
+    *   [TypeScript](https://www.typescriptlang.org/) -  Superset of JavaScript that adds static typing.
+*   **Backend & Infrastructure:**
+    *   [Firebase](https://firebase.google.com/) - Backend-as-a-Service (BaaS) platform.
+        *   [Firestore](https://firebase.google.com/docs/firestore) - NoSQL cloud database.
+        *   [Firebase Authentication](https://firebase.google.com/docs/auth) - User authentication service.
 
-### Prerequisites
+## Setup Instructions
 
-Make sure you have the following installed:
+1.  **Download the Repository:**
 
-* **Node.js** (version 16 or higher recommended) - [https://nodejs.org/](https://nodejs.org/)
-* **npm** (Node Package Manager - usually comes with Node.js) or **yarn** [https://yarnpkg.com/](https://yarnpkg.com/)
-* **Angular CLI** (Angular Command Line Interface) - Install globally using: `npm install -g @angular/cli`
+    Clone the repository to your local machine using Git:
 
-### Installation
+    ```bash
+    git clone https://github.com/Michael-ctrl-eng/Angular-Appointment-Scheduler.git
+    cd Angular-Appointment-Scheduler
+    ```
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/Michael-ctrl-eng/Angular-Appointment-Scheduler.git
-Use code with caution.
-Markdown
-Navigate to the project directory:
+2.  **Install Dependencies:**
 
-cd Angular-Appointment-Scheduler
-Use code with caution.
-Bash
-Install dependencies:
+    Navigate to the project directory in your terminal and install the required Node.js packages using npm:
 
-npm install  # or yarn install
-Use code with caution.
-Bash
-This command will install all the necessary npm packages listed in package.json.
+    ```bash
+    npm install
+    ```
 
-Running the Application
-Start the development server:
+3.  **Firebase Configuration:**
 
-ng serve
-Use code with caution.
-Bash
-or
+    *   **Create a Firebase Project:** If you don't have one already, create a new project in the [Firebase Console](https://console.firebase.google.com/).
+    *   **Enable Firestore and Authentication:** In your Firebase project, enable Firestore database and Authentication (choose your preferred authentication methods, e.g., Email/Password).
+    *   **Get Firebase Configuration:** Go to Project settings > General > Web apps > Add app (</>). Register your app and copy the Firebase configuration object.
+    *   **Update Environment Files:** In the `Angular-Appointment-Scheduler` project, navigate to `src/environments/`.
+        *   Replace the placeholder values in `environment.ts` and `environment.prod.ts` with your Firebase configuration object.
 
-npm start  # Check package.json scripts for the exact start command if 'ng serve' doesn't work directly.
-Use code with caution.
-Bash
-Open your browser: Navigate to http://localhost:4200/. The application should now be running in your browser.
+        ```typescript
+        // environment.ts (example)
+        export const environment = {
+          production: false,
+          firebaseConfig: {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID",
+            measurementId: "YOUR_MEASUREMENT_ID"
+          }
+        };
+        ```
 
-Using the Application
-Once the application is running, you should be able to:
+4.  **Environment Setup (Optional):**
 
-View the Calendar: Navigate through the calendar to see appointments for different days, weeks, or months.
+    If you need to configure any environment variables (e.g., API endpoints, specific settings), you can modify the `environment.ts` and `environment.prod.ts` files in `src/environments/`.
 
-Create a New Appointment: Look for a button or interface element to create a new appointment (e.g., "Add Appointment," "+", or clicking on a time slot). Fill in the appointment details in the form and save.
+## Running the Application
 
-View Appointment Details: Click on an appointment in the calendar to view its details.
+1.  **Start Development Server:**
 
-Edit an Appointment: Look for an "Edit" button or option when viewing appointment details to modify the appointment.
+    To run the application in development mode with live reload, use the Angular CLI serve command:
 
-Delete an Appointment: Look for a "Delete" button or option when viewing appointment details to remove the appointment.
+    ```bash
+    ng serve
+    ```
 
-Note on Data Persistence:
+    Open your browser and navigate to `http://localhost:4200/`. The application should be running.
 
-This project, in its current form, might be primarily a front-end demonstration. Appointment data might be stored in memory or simulated. For a persistent appointment scheduler, you would typically need to integrate a backend server and database to store and retrieve appointment data. This repository may not include backend integration.
+2.  **Build for Production:**
 
-Contributing
-Contributions are welcome! If you find bugs, have suggestions for improvements, or want to add new features, please feel free to:
+    To build the application for production deployment, use the Angular CLI build command:
 
-Fork the repository.
+    ```bash
+    ng build --prod
+    ```
 
-Create a new branch for your feature or bug fix.
+    The production build will be located in the `dist/angular-appointment-scheduler` directory. You can then deploy these files to a web server or Firebase Hosting (see Deployment instructions below).
 
-Make your changes and commit them.
+## VS Code Setup (Recommended Extensions & Settings)
 
-Submit a pull request.
+For an optimal development experience, it is recommended to use VS Code with the following extensions and settings:
+
+**Recommended Extensions:**
+
+*   **[Angular Language Service](https://marketplace.visualstudio.com/items?itemName=Angular.ng-template):** Provides rich editing experience for Angular templates.
+*   **[ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint):** Integrates ESLint for code linting and error detection.
+*   **[Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode):**  Formats your code to maintain consistent style.
+*   **[Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme):**  Enhances VS Code's file icons for better visual organization.
+*   **[GitLens — Git supercharged](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens):**  Provides powerful Git features within VS Code.
+
+**VS Code Settings (settings.json):**
+
+You can configure VS Code to automatically format your code on save and enable ESLint validation. Open VS Code settings (`Ctrl + ,` or `Cmd + ,`) and click on the "Open Settings (JSON)" icon in the top-right corner. Add or modify the following settings in your `settings.json` file:
+
+```json
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html"
+  ],
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
