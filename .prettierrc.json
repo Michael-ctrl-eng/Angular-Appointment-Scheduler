@@ -1,0 +1,11 @@
+{
+  "printWidth": 140, // Match ESLint's max-len if you have one
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "bracketSpacing": true,
+  "arrowParens": "always",
+  "plugins": ["@prettier/plugin-angular"] // Add Angular plugin for HTML formatting
+}
