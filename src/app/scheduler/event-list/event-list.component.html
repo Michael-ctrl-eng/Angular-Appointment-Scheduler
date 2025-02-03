@@ -1,0 +1,26 @@
+<div class="event-list-container" role="region" aria-label="Event List" tabindex="0" #eventList>
+  <div class="event-actions">
+    <button mat-mini-fab color="primary" aria-label="Add Event" (click)="onAddEventClick()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+  <div *ngIf="!events || events.length === 0" class="no-events">No events scheduled.</div>
+
+  <div *ngIf="events && events.length > 0" class="events-grid" role="grid">
+    <div *ngFor="let event of events; trackBy: trackByEvents"
+         class="event-item"
+         role="gridcell"
+         [style]="getEventStyle(event)"
+         tabindex="0"
+         aria-label="Event: {{ event.title }}, Time: {{ formatEventTime(event) }}"
+         (click)="onEventClick(event)"
+         #eventElement>
+      <span class="event-title">{{ event.title }}</span>
+      <span class="event-time">({{ formatEventTime(event) }})</span>
+      <button mat-icon-button color="warn" aria-label="Delete Event: {{event.title}}" (click.stop)="onDeleteEventClick(event, eventElement, eventList)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
