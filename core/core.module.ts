@@ -1,8 +1,9 @@
-import { NgModule, Optional, SkipSelf, ErrorHandler } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { GlobalErrorHandlerService } from './global-error-handler.service'; // Import GlobalErrorHandlerService
-
+import { RestApiService } from './rest-api.service';
+import { GlobalErrorHandler } from './global-error-handler';
+import { AuthInterceptor } from '../auth/auth.interceptor';
 
 @NgModule({
   declarations: [],
@@ -10,20 +11,10 @@ import { GlobalErrorHandlerService } from './global-error-handler.service'; // I
     CommonModule,
     HttpClientModule
   ],
-  exports: [
-    HttpClientModule,
-    CommonModule
-  ],
   providers: [
-    { provide: ErrorHandler, useClass: GlobalErrorHandlerService } // Provide GlobalErrorHandlerService
-    // Add singleton services here (if any)
+    RestApiService,
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ]
 })
-export class CoreModule {
-  constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
-    if (parentModule) {
-      throw new Error(
-        'CoreModule is already loaded. Import it in the AppModule only.');
-    }
-  }
-}
+export class CoreModule { }
