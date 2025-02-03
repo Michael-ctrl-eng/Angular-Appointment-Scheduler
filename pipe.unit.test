@@ -1,0 +1,24 @@
+import { DateFormatPipe } from './date-format.pipe'; // Import your pipe
+
+describe('DateFormatPipe', () => {
+  let pipe: DateFormatPipe;
+
+  beforeEach(() => {
+    pipe = new DateFormatPipe(); // Instantiate the pipe
+  });
+
+  it('should create an instance', () => {
+    expect(pipe).toBeTruthy();
+  });
+
+  it('should transform a date to a specific format', () => {
+    const date = new Date(2024, 0, 20, 10, 30, 0); // January 20, 2024 10:30 AM
+    const formattedDate = pipe.transform(date, 'MM/dd/yyyy hh:mm a'); // Example format
+    expect(formattedDate).toEqual('01/20/2024 10:30 AM'); // Assert the expected formatted output
+  });
+
+  it('should handle null or undefined input', () => {
+    expect(pipe.transform(null)).toBeNull(); // Or handle as you expect for null input
+    expect(pipe.transform(undefined)).toBeNull(); // Or handle as you expect for undefined input
+  });
+});
