@@ -1,0 +1,15 @@
+<div *ngIf="loadingAppointments">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    Loading Appointments...
+</div>
+
+<div *ngIf="errorLoadingAppointments">
+    <p>Error loading appointments. Please try again later.</p>
+</div>
+
+<div *ngIf="!loadingAppointments && !errorLoadingAppointments">
+    <app-appointment-display
+        [appointments]="appointments" <!-- Pass appointments to "dumb" component -->
+        [calendarOptions]="calendarOptions"  <!-- Pass calendar options if needed for config -->
+    ></app-appointment-display>
+</div>
