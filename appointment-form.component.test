@@ -1,0 +1,28 @@
+// ... (previous imports and setup) ...
+
+  it('should have an invalid form initially', () => {
+    expect(component.appointmentForm.valid).toBeFalsy(); // Assert form is invalid at start
+  });
+
+  it('should have a valid form when title is filled', () => {
+    const titleInput = fixture.debugElement.nativeElement.querySelector('#title'); // Assuming input has id="title"
+    titleInput.value = 'Test Appointment';
+    titleInput.dispatchEvent(new Event('input')); // Simulate user input event
+    fixture.detectChanges(); // Trigger change detection
+
+    expect(component.appointmentForm.valid).toBeTruthy(); // Assert form is now valid
+  });
+
+  it('should emit an appointmentCreated event when the form is submitted and valid', () => {
+    spyOn(component.appointmentCreated, 'emit'); // Spy on the output event
+
+    component.appointmentForm.controls['title'].setValue('Test Appointment'); // Set title value programmatically
+    fixture.detectChanges();
+
+    const submitButton = fixture.debugElement.nativeElement.querySelector('button[type="submit"]'); // Assuming submit button
+    submitButton.click(); // Simulate button click
+
+    expect(component.appointmentCreated.emit).toHaveBeenCalled(); // Assert event was emitted
+    // You can also assert the emitted value if needed:
+    // expect(component.appointmentCreated.emit).toHaveBeenCalledWith(/* expected appointment object */);
+  });
