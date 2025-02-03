@@ -1,0 +1,74 @@
+{
+  "root": true,
+  "ignorePatterns": [
+    "projects/**/*"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "tsconfig.json",
+          "tsconfig.app.json",
+          "tsconfig.spec.json",
+          "e2e/tsconfig.json" // If you have e2e tests
+        ],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended", // Recommended TypeScript rules
+        "plugin:@typescript-eslint/recommended-requiring-type-checking", //  Recommended TypeScript rules requiring type checking
+        "plugin:@angular-eslint/recommended", // Recommended Angular rules
+        "plugin:@angular-eslint/template/process-inline-templates", // Process inline templates
+        "prettier" // Make sure Prettier is last in extends to avoid conflicts
+      ],
+      "plugins": [
+        "prettier" // Add Prettier plugin
+      ],
+      "rules": {
+        "prettier/prettier": "error", // Report Prettier formatting issues as errors
+        "@angular-eslint/component-selector": [ // Enforce component selector naming
+          "error",
+          {
+            "type": "element",
+            "prefix": "app", // Customize prefix as needed (e.g., your org name)
+            "style": "kebab-case"
+          }
+        ],
+        "@angular-eslint/directive-selector": [ // Enforce directive selector naming
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app", // Customize prefix as needed
+            "style": "camelCase"
+          }
+        ],
+        "@typescript-eslint/explicit-function-return-type": "warn", // Suggest explicit return types for functions
+        "@typescript-eslint/no-explicit-any": "warn", // Warn about using 'any' type
+        "@typescript-eslint/no-unused-vars": "warn", // Warn about unused variables
+        "no-console": "warn", // Warn about using console.log (can be "error" for stricter enforcement)
+        "no-debugger": "warn", // Warn about using debugger statements (can be "error")
+        "curly": "error", // Enforce curly braces for control statements
+        "eqeqeq": ["error", "always"], // Enforce strict equality (=== and !==)
+        "no-shadow": "warn", // Warn about variable shadowing
+        "max-len": ["warn", { "code": 140, "ignoreUrls": true }], // Limit line length (adjust 'code' as needed)
+        "no-trailing-spaces": "error", // Disallow trailing whitespace
+        "quotes": ["error", "single", { "avoidEscape": true }], // Enforce single quotes
+        "semi": ["error", "always"] // Enforce semicolons
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended",
+        "plugin:@angular-eslint/template/accessibility" // Enable accessibility linting for templates
+      ],
+      "rules": {}
+    }
+  ]
+}
