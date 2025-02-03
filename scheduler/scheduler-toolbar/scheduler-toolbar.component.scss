@@ -1,0 +1,10 @@
+/* ... existing styles ... */
+.toolbar-center {
+  display: flex;
+  align-items: center;
+
+  .display-date {
+    margin: 0 15px;
+    font-weight: 500;
+  }
+}
