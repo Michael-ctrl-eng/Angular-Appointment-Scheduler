@@ -1,0 +1,53 @@
+.day-view-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  border: 1px solid var(--divider-color);
+  border-radius: 4px;
+}
+
+.day-view-header, .day-view-content {
+  display: flex;
+  flex-direction: row;
+}
+
+.header-cell, .time-cell, .day-cell {
+  border: 1px solid var(--divider-color);
+  padding: 8px;
+  text-align: center;
+}
+
+.header-cell {
+  font-weight: bold;
+  background-color: var(--scheduler-header-background);
+}
+
+.day-view-hour-col {
+  flex-basis: 10%;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.day-view-day-col {
+  flex-grow: 1;
+  position: relative; /* For absolute positioning of events */
+}
+
+.day-event {
+  position: absolute;
+  background-color: var(--event-item-background);
+  border-left: 3px solid var(--event-item-border-color);
+  padding: 5px;
+  border-radius: 3px;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.8em;
+}
+
+.day-view-actions {
+  padding: 10px;
+  text-align: right;
+}
