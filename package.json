@@ -1,0 +1,14 @@
+"devDependencies": {
+  "@angular-devkit/build-angular": ...,
+  "@angular-cli/cli": ...,
+  "@angular/compiler-cli": ...,
+  "@types/jasmine": ...,
+  "@types/node": ...,
+  "jasmine-core": ...,
+  "karma": ...,
+  "karma-chrome-launcher": ...,
+  "karma-coverage": ...,
+  "karma-jasmine": ...,
+  "karma-jasmine-html-reporter": ...,
+  "typescript": ...
+}
