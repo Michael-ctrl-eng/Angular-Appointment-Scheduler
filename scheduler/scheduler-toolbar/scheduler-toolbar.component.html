@@ -1,0 +1,21 @@
+<div class="scheduler-toolbar">
+  <div class="toolbar-left">
+    <div class="view-selector">
+      <button mat-button [class.active]="currentView === 'month'" (click)="onViewChangeToMonth()">Month</button>
+      <button mat-button [class.active]="currentView === 'week'" (click)="onViewChangeToWeek()">Week</button>
+      <button mat-button [class.active]="currentView === 'day'" (click)="onViewChangeToDay()">Day</button>
+      <button mat-button [class.active]="currentView === 'list'" (click)="onViewChangeToList()">List</button>
+    </div>
+  </div>
+
+  <div class="toolbar-center">
+    <button mat-icon-button aria-label="Previous" (click)="onPrev()"><mat-icon>chevron_left</mat-icon></button>
+    <button mat-button (click)="onToday()">Today</button>
+    <span class="display-date">{{ displayDate }}</span> <!-- Display the formatted date here -->
+    <button mat-icon-button aria-label="Next" (click)="onNext()"><mat-icon>chevron_right</mat-icon></button>
+  </div>
+
+  <div class="toolbar-right">
+    <app-theme-switcher></app-theme-switcher>
+  </div>
+</div>
