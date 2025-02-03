@@ -1,0 +1,12 @@
+<!-- toggle-switch.component.html -->
+<div class="toggle-switch-container">
+    <button role="switch"
+            class="toggle-button"
+            [attr.aria-checked]="isOn ? 'true' : 'false'"
+            (click)="toggle()">
+        <span class="toggle-track">
+            <span class="toggle-thumb" [class.on]="isOn"></span>
+        </span>
+        <span class="toggle-label">{{ label }} <span *ngIf="isOn">(On)</span><span *ngIf="!isOn">(Off)</span></span>
+    </button>
+</div>
