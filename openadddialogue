@@ -1,0 +1,19 @@
+
+  openAddDialog(day?: Date): void { // Make day parameter optional
+    if (!this.isEventFormDialogOpen) {
+      this.isEventFormDialogOpen = true;
+      this.eventFormDialogRef = this.dialog.open(EventFormComponent, {
+        width: '500px',
+        data: { event: null, suggestedStartDate: day } // Pass suggestedStartDate to event form
+      });
+
+      this.eventFormDialogRef.afterClosed()
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe(result => {
+          this.isEventFormDialogOpen = false;
+          if (result) {
+            this.schedulerService.addEvent(result as Event).subscribe();
+          }
+        });
+    }
+  }
