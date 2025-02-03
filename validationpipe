@@ -1,0 +1,7 @@
+@Post()
+@UsePipes(new ValidationPipe()) // Apply ValidationPipe
+async create(@Body() createEventDto: CreateEventDto) { ... }
+
+@Put(':id')
+@UsePipes(new ValidationPipe()) // Apply ValidationPipe
+async update( ... ) { ... }
