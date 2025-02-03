@@ -1,0 +1,7 @@
+<full-calendar *ngIf="calendarOptions" [options]="calendarOptions"></full-calendar>
+
+<ul *ngIf="appointments.length > 0 && !calendarOptions.events?.length"> < !-- Example if you want to show a list in case calendar fails to load -->
+    <li *ngFor="let appointment of appointments">{{ appointment.title }}</li>
+</ul>
+
+<p *ngIf="appointments.length === 0 && !calendarOptions.events?.length">No appointments found.</p>
