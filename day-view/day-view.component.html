@@ -1,0 +1,26 @@
+<div class="day-view-container" role="grid" aria-label="Day View">
+  <div class="day-view-header" role="row">
+    <div class="day-view-hour-col header-cell" role="columnheader"></div>
+    <div class="day-view-day-col header-cell" role="columnheader">{{ viewDate | date:'EEEE, MMMM d' }}</div>
+  </div>
+  <div class="day-view-content" role="rowgroup">
+    <div class="day-view-row" role="row" *ngFor="let hour of hours; trackBy: trackByIndex">
+      <div class="day-view-hour-col time-cell" role="rowheader">{{ formatHour(hour) }}</div>
+      <div class="day-view-day-col day-cell" role="gridcell">
+        <div *ngFor="let viewEvent of viewEvents; trackBy: trackByViewEvents"
+             class="day-event"
+             [ngStyle]="viewEvent.styles"
+             role="button" tabindex="0"
+             aria-label="Event: {{ viewEvent.event.title }}, Time: {{ viewEvent.startsAt | date:'shortTime' }} - {{ viewEvent.endsAt | date:'shortTime' }}"
+             (click)="onEventClick(viewEvent)">
+          <span class="event-title">{{ viewEvent.event.title }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="day-view-actions">
+    <button mat-mini-fab color="primary" aria-label="Add Event" (click)="onAddEventClick()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>
