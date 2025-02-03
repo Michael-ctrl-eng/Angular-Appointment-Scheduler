@@ -1,0 +1,30 @@
+<!-- appointment-form.component.html -->
+<form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="appointment-title">Title <span class="required">*</span>:</label>
+        <input type="text" id="appointment-title" formControlName="title"
+               [attr.aria-invalid]="titleControl.invalid ? 'true' : null"
+               aria-describedby="title-error">
+        <div id="title-error" class="error-message" *ngIf="titleControl.invalid && (titleControl.dirty || titleControl.touched)">
+            <span *ngIf="titleControl.errors?.['required']">Title is required.</span>
+            <span *ngIf="titleControl.errors?.['minlength']">Title must be at least 3 characters long.</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="appointment-start-date">Start Date <span class="required">*</span>:</label>
+        <input type="datetime-local" id="appointment-start-date" formControlName="startDate"
+               [attr.aria-invalid]="startDateControl.invalid ? 'true' : null"
+               aria-describedby="startDate-error">
+        <div id="startDate-error" class="error-message" *ngIf="startDateControl.invalid && (startDateControl.dirty || startDateControl.touched)">
+            Start date and time are required.
+        </div>
+    </div>
+
+    <!-- ... (other form fields - end date, notes, etc. with labels, validation, aria-invalid, aria-describedby) ... -->
+
+    <div class="form-actions">
+        <button type="submit" [disabled]="appointmentForm.invalid">Save Appointment</button>
+        <button type="button" (click)="onCancel()">Cancel</button>
+    </div>
+</form>
