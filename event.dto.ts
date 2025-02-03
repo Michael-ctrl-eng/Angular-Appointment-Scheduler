@@ -1,26 +1,41 @@
 // src/events/dto/event.dto.ts
-import { IsNotEmpty, IsString, IsDate, IsOptional, IsISO8601 } from 'class-validator';
+import {
+    IsNotEmpty,
+    IsString,
+    IsOptional,
+    IsISO8601,
+    Length,
+    IsBoolean,
+    ValidateIf,
+    IsNotEmptyIf
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
+
 export class CreateEventDto {
-  @IsNotEmpty()
-  @IsString()
-  title: string;
+    // ... (existing fields - title, description, startTime, endTime)
 
-  @IsOptional()
-  @IsString()
-  description?: string;
+    @IsOptional()
+    @IsBoolean({ message: 'Is Recurring must be a boolean' })
+    isRecurring?: boolean;
 
-  @IsNotEmpty()
-  @IsISO8601() // or @IsDateString if you prefer string format
-  startTime: string; // Expecting ISO 8601 date-time string from frontend
+    @IsOptional()
+    @ValidateIf(o => o.isRecurring === true) // **Conditional validation: require recurrenceRule if isRecurring is true**
+    @IsNotEmpty({ message: 'Recurrence Rule is required for recurring events' })
+    @IsString({ message: 'Recurrence Rule must be a string' })
+    recurrenceRule?: string;
 
-  @IsNotEmpty()
-  @IsISO8601() // or @IsDateString
-  endTime: string;   // Expecting ISO 8601 date-time string
+    // ... (rest of DTO)
 }
 
-export class UpdateEventDto extends CreateEventDto { // Reusing validation from Create DTO, extend if needed
-  @IsNotEmpty()
-  id: number; // ID required for update
+export class UpdateEventDto extends CreateEventDto {
+    // ... (existing fields)
+
+    @IsOptional()
+    @ValidateIf(o => o.isRecurring === true) // **Conditional validation for update as well**
+    @IsNotEmpty({ message: 'Recurrence Rule is required for recurring events' })
+    @IsString({ message: 'Recurrence Rule must be a string' })
+    recurrenceRule?: string;
+
+    // ... (rest of UpdateEventDto)
 }
