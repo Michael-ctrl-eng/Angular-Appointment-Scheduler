@@ -1,0 +1,98 @@
+@use '@angular/material' as mat;
+@import 'datetimepicker-theme'; // Keep if you have custom datetimepicker styles, remove otherwise
+
+@include mat.core();
+
+// Define Custom Palettes (Optional - modify colors as needed if still using Material themes directly)
+$scheduler-primary: mat.define-palette(mat.$indigo-palette, 500, 100, 700);
+$scheduler-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$scheduler-warn: mat.define-palette(mat.$red-palette, A700);
+
+// Define Light Theme (still helpful if you want Material component theming to switch as well)
+$scheduler-light-theme: mat.define-light-theme((
+ color: (
+   primary: $scheduler-primary,
+   accent: $scheduler-accent,
+   warn: $scheduler-warn,
+ ),
+ typography: mat.define-typography-config(),
+ density: 0,
+));
+
+// Define Dark Theme (for potential Material theme switching, otherwise, you can simplify to just CSS variables)
+$scheduler-dark-theme: mat.define-dark-theme((
+ color: (
+   primary: $scheduler-primary, // Or different palettes for dark theme
+   accent: $scheduler-accent,
+   warn: $scheduler-warn,
+ ),
+ typography: mat.define-typography-config(),
+ density: 0,
+));
+
+// Apply Light Theme by default on startup (can be overridden by ThemeService)
+@include mat.all-component-themes($scheduler-light-theme);
+@include angular-material-datetimepicker-theme($scheduler-light-theme); // Apply theme to custom datetimepicker if needed
+
+
+/* CSS variables - initial definitions (values will be overridden by ThemeService) */
+:root {
+  /* Primary Colors */
+  --primary-color: #3f51b5;
+  --primary-color-light: #757de8;
+  --primary-color-dark: #002984;
+  --primary-color-contrast: #ffffff;
+
+  /* Accent Colors */
+  --accent-color: #e91e63;
+  --accent-color-light: #ff6090;
+  --accent-color-dark: #b0003a;
+  --accent-color-contrast: #ffffff;
+
+  /* Warn Color */
+  --warn-color: #f44336;
+  --warn-color-contrast: #ffffff;
+
+  /* Background and Surface Colors */
+  --background-color: #fafafa;
+  --surface-color: #ffffff;
+  --text-color-primary: rgba(0, 0, 0, 0.87);
+  --text-color-secondary: rgba(0, 0, 0, 0.6);
+  --divider-color: rgba(0, 0, 0, 0.12);
+
+  /* Component-Specific Variables */
+  --scheduler-header-background: #757de8;
+  --event-list-background: #ffffff;
+  --event-item-background: #e0f7fa;
+  --event-item-border-color: #00bcd4;
+  --scheduler-toolbar-background: #ffffff;
+  --scheduler-toolbar-button-color: rgba(0, 0, 0, 0.87);
+}
+
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color-primary);
+}
+
+/* Optional body class-based theming - classes applied by ThemeService */
+body.dark-theme {
+  background-color: var(--background-color);
+  color: var(--text-color-primary);
+}
+
+body.light-theme {
+  background-color: var(--background-color);
+  color: var(--text-color-primary);
+}
+
+
+.logout-button {
+  background-color: var(--warn-color);
+  color: var(--warn-color-contrast);
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
