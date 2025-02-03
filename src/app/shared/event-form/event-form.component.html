@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>{{ data.event ? 'Edit Event' : 'Add Event' }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="eventForm">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" required>
+      <mat-error *ngIf="eventForm.get('title')?.hasError('required')">Title is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Start Date & Time</mat-label>
+      <input matInput [matDatetimepicker]="startPicker" formControlName="start" required>
+      <mat-datetimepicker-toggle matSuffix [for]="startPicker"></mat-datetimepicker-toggle>
+      <mat-datetimepicker #startPicker></mat-datetimepicker>
+      <mat-error *ngIf="eventForm.get('start')?.hasError('required')">Start date is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>End Date & Time</mat-label>
+      <input matInput [matDatetimepicker]="endPicker" formControlName="end" required>
+      <mat-datetimepicker-toggle matSuffix [for]="endPicker"></mat-datetimepicker-toggle>
+      <mat-datetimepicker #endPicker></mat-datetimepicker>
+      <mat-error *ngIf="eventForm.get('end')?.hasError('required')">End date is required</mat-error>
+      <mat-error *ngIf="eventForm.hasError('dateRange')">End date must be after start date</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="eventForm.invalid">Save</button>
+</mat-dialog-actions>
