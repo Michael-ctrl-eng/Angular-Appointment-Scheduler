@@ -1,0 +1,50 @@
+<!-- app.component.html -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<app-header class="app-header">
+    <div class="container header-container">
+        <h1 class="app-title">Appointment Scheduler</h1>
+        <nav class="app-nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a routerLink="/" routerLinkActive="active-link" class="nav-link">Calendar</a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="/appointments" routerLinkActive="active-link" class="nav-link">Appointments</a>
+                </li>
+                <!-- Add more navigation links here as needed -->
+                <!-- Example:
+                <li class="nav-item">
+                    <a routerLink="/settings" routerLinkActive="active-link" class="nav-link">Settings</a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="/profile" routerLinkActive="active-link" class="nav-link">Profile</a>
+                </li>
+                -->
+            </ul>
+        </nav>
+    </div>
+</app-header>
+
+<main id="main-content" class="app-main">
+    <div class="container main-container">
+        <router-outlet></router-outlet>
+    </div>
+</main>
+
+<app-footer class="app-footer">
+    <div class="container footer-container">
+        <p class="copyright">© {{ currentYear }} My Appointment Scheduler. All rights reserved.</p>
+        <nav class="footer-nav">
+            <ul class="footer-nav-list">
+                <li class="footer-nav-item">
+                    <a href="/privacy-policy" class="footer-nav-link">Privacy Policy</a>
+                </li>
+                <li class="footer-nav-item">
+                    <a href="/terms-of-service" class="footer-nav-link">Terms of Service</a>
+                </li>
+                <!-- Add more footer links as needed -->
+            </ul>
+        </nav>
+    </div>
+</app-footer>
