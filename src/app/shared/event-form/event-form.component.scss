@@ -1,0 +1,16 @@
+.full-width {
+  width: 100%;
+}
+
+mat-form-field {
+  margin-bottom: 10px;
+}
+
+mat-dialog-content {
+  overflow-y: auto; /* Enable vertical scroll for long forms if needed */
+  max-height: 80vh; /* Limit maximum height of dialog content */
+}
+
+mat-dialog-actions {
+  margin-top: 20px;
+}
