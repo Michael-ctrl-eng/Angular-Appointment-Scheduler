@@ -1,0 +1,16 @@
+<mat-dialog-content>
+  <form [formGroup]="eventForm">
+      <!-- ... (existing form fields - title, start, end, description) -->
+
+      <mat-checkbox formControlName="isRecurring">Recurring Event</mat-checkbox>
+
+      <div *ngIf="isRecurringControlVisible" class="recurrence-section">  <!-- Conditional Recurrence Section -->
+          <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Recurrence Rule (RRULE)</mat-mat-label>
+              <textarea matInput formControlName="recurrenceRule" placeholder="Enter iCalendar RRULE"></textarea>
+              <mat-hint>Enter iCalendar RRULE format (e.g., FREQ=WEEKLY;COUNT=10)</mat-hint>
+              <mat-error *ngIf="eventForm.get('recurrenceRule')?.hasError('required')">Recurrence Rule is required for recurring events.</mat-error>
+          </mat-form-field>
+      </div>
+  </form>
+</mat-dialog-content>
