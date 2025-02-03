@@ -1,0 +1,31 @@
+<div class="week-view-container" role="grid" aria-label="Week View">
+  <div class="week-view-header" role="row">
+    <div class="week-view-hour-col header-cell" role="columnheader"></div>
+    <div class="week-view-day-header day-header-cell header-cell" role="columnheader" *ngFor="let day of viewDays; trackBy: trackByViewDays">
+      {{ day.date | date:'EEE' }}<br>{{ day.date | date:'d' }}
+    </div>
+  </div>
+  <div class="week-view-content" role="rowgroup">
+    <div class="week-view-row" role="row" *ngFor="let hour of hours; trackBy: trackByIndex">
+      <div class="week-view-hour-col time-cell" role="rowheader">{{ formatHour(hour) }}</div>
+      <div class="week-view-day-col day-cell" role="gridcell" *ngFor="let day of viewDays; trackBy: trackByViewDays">
+        <div *ngFor="let viewEventRow of viewEventRows; trackBy: trackByEventRows">
+          <div *ngFor="let viewEvent of viewEventRow.row; trackBy: trackByViewEvents"
+               class="week-event"
+               *ngIf="viewEvent.event.start | date:'yyyy-MM-dd' === day.date | date:'yyyy-MM-dd'"  <!-- Display event on correct day -->
+               [ngStyle]="viewEvent.styles"
+               role="button" tabindex="0"
+               aria-label="Event: {{ viewEvent.event.title }}, Time: {{ viewEvent.startsAt | date:'shortTime' }} - {{ viewEvent.endsAt | date:'shortTime' }}"
+               (click)="onEventClick(viewEvent)">
+            <span class="event-title">{{ viewEvent.event.title }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="week-view-actions">
+    <button mat-mini-fab color="primary" aria-label="Add Event" (click)="onAddEventClick()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>
