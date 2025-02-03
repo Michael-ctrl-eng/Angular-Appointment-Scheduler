@@ -1,30 +1,48 @@
-// Inside shared/event-form/event-form.component.ts
+// src/shared/event-form/event-form.component.ts
 import { Component, Inject, Output, EventEmitter, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Event } from '../../event.model';
+import { RRule } from 'rrule'; // Import RRule
 
 @Component({ /* ... */ })
 export class EventFormComponent implements OnInit {
-  eventForm!: FormGroup;
-  @Output() eventSaved = new EventEmitter<Event>();
+    eventForm!: FormGroup;
+    @Output() eventSaved = new EventEmitter<Event>();
+    isRecurringControlVisible = false; // Control visibility of recurrence section
 
-  constructor(
-    public dialogRef: MatDialogRef<EventFormComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { event: Event | null, suggestedStartDate?: Date }, // Add suggestedStartDate to data
-    private formBuilder: FormBuilder
-  ) { }
 
-  ngOnInit(): void {
-    const startDate = this.data.event?.start || this.data.suggestedStartDate || null; // Use suggestedStartDate if available for new event
-    const endDate = this.data.event?.end || this.data.suggestedStartDate || null;    // Set end date same as start for new event if suggested
-    this.eventForm = this.formBuilder.group({
-      title: [this.data.event?.title || '', Validators.required],
-      start: [startDate, Validators.required],
-      end: [endDate, Validators.required],
-      description: [this.data.event?.description || '']
-    }, { validators: this.dateRangeValidator });
-  }
+    ngOnInit(): void {
+        this.eventForm = this.formBuilder.group({
+            // ... (existing form controls - title, start, end, description)
+            isRecurring: [this.data.event?.isRecurring || false], // **Add isRecurring control**
+            recurrenceRule: [this.data.event?.recurrenceRule || '', ] // **Add recurrenceRule control, initially empty**
+        }, { validators: this.dateRangeValidator });
 
-  // ... (rest of the component: dateRangeValidator, onSave, onCancel) ...
+        this.eventForm.get('isRecurring').valueChanges.subscribe(value => { // Control visibility based on isRecurring value
+            this.isRecurringControlVisible = value; // Show/hide recurrence rule input
+            const recurrenceRuleControl = this.eventForm.get('recurrenceRule');
+            if (value) {
+                recurrenceRuleControl.setValidators(Validators.required); // Conditionally require recurrenceRule
+            } else {
+                recurrenceRuleControl.clearValidators(); // Remove requirement when not recurring
+            }
+            recurrenceRuleControl.updateValueAndValidity(); // Update validation status
+        });
+    }
+
+    onSave(): void {
+        if (this.eventForm.valid) {
+            const newEvent: Event = {
+                ...this.data.event,
+                ...this.eventForm.value,
+                isRecurring: this.eventForm.get('isRecurring').value, // Get isRecurring value
+                recurrenceRule: this.eventForm.get('recurrenceRule').value // Get recurrenceRule value
+            };
+            this.eventSaved.emit(newEvent);
+            this.dialogRef.close(newEvent);
+        }
+    }
+
+    // ... (rest of EventFormComponent code - dateRangeValidator, onCancel)
 }
