@@ -2,11 +2,11 @@
   "name": "angular-appointment-scheduler",
   "version": "1.0.0",
   "description": "Enterprise-Grade Angular Appointment Scheduler with NestJS Backend",
-  "author": "[Your Name]",
+  "author": "Your Name",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "[Your Repository URL - e.g., GitHub repo]"
+    "url": "https://github.com/yourusername/your-repo-name.git"
   },
   "keywords": [
     "angular",
@@ -52,7 +52,7 @@
     "@angular/platform-browser": "^17.2.0",
     "@angular/platform-browser-dynamic": "^17.2.0",
     "@angular/router": "^17.2.0",
-    "@nestjs/cache-manager":
+    "@nestjs/cache-manager": "latest",
     "@nestjs/common": "^10.3.0",
     "@nestjs/config": "^3.2.0",
     "@nestjs/core": "^10.3.0",
