@@ -1,44 +1,39 @@
-name: lint-format  # Workflow name - adjust if you want to change it
+name: lint-format
 
-on: # Workflow Triggers (when workflow will run)
+on:
   push:
-    branches: [ "main" ] # Run on pushes to the 'main' branch (adjust branch name if needed)
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ] # Run on pull requests against the 'main' branch
+    branches: [ "main" ]
 
 jobs:
-  lint-format: # Job ID - name of the job in the workflow
-    runs-on: ubuntu-latest # Operating system for the runner (Ubuntu, latest version)
+  lint-format:
+    runs-on: ubuntu-latest
 
-    steps: # List of steps to execute in this job
-      - uses: actions/checkout@v3 # Step: Checkout code from the repository
+    steps:
+      - uses: actions/checkout@v3
 
-      - name: Set up Node.js # Step: Setup Node.js environment
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18' # Node.js version to use (you can adjust if needed)
+          node-version: '18'
 
-      - name: Clean Install Dependencies # Step: Clean npm install - to clear node_modules and cache
+      - name: Clean Install Dependencies
         run: |
-          rm -rf node_modules # Remove node_modules directory (if exists)
-          npm cache clean --force # Clear npm cache
+          rm -rf node_modules
+          npm cache clean --force
 
-      - name: Set npm Registry to Official npmjs.org  # **NEW STEP ADDED - Explicitly set npm registry**
-        run: npm config set registry https://registry.npmjs.org/ # Forces npm to use official registry
+      - name: Install Dependencies # **Full Updated Code - with --legacy-peer-deps**
+        run: npm install --legacy-peer-deps
 
-      - name: Install Dependencies # Step: Install npm dependencies
-        run: npm install # Run 'npm install' to install project dependencies
+      - name: Lint
+        run: npm run lint
 
-      - name: Lint # Step: Run linting (adjust command if your lint script is different)
-        run: npm run lint # Assumes you have a 'lint' script in package.json
+      - name: Format Check
+        run: npm run format:check
 
-      - name: Format Check # Step: Run format check (adjust command if your format check script is different)
-        run: npm run format:check # Assumes you have a 'format:check' script in package.json
-
-      - name: Post Set Up Node.js # Step: Post setup actions for Node.js (optional - might not be strictly necessary)
+      - name: Post Set Up Node.js
         run: echo "Post Set Up Node.js steps can be added here if needed"
-        # You can add commands here that need to run after Node.js setup but before dependency installation
 
-      - name: Post Run actions/checkout@v3 # Step: Post actions for checkout step (usually not needed to modify)
+      - name: Post Run actions/checkout@v3
         run: echo "Post Run actions/checkout@v3 steps can be added here if needed"
-        # You can add commands here related to checkout if necessary
