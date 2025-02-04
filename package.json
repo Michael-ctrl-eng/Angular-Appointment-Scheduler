@@ -61,7 +61,7 @@
     "@nestjs/platform-express": "^10.3.0",
     "@nestjs/swagger": "^7.3.0",
     "@nestjs/testing": "^10.3.0",
-    "@nestjs/typeorm": "^10.0.0",  // Updated version
+    "@nestjs/typeorm": "^10.0.0",
     "@types/passport-jwt": "^3.0.13",
     "@types/rrule": "^2.6.5",
     "cache-manager": "^5.4.0",
