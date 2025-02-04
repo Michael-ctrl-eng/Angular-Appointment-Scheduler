@@ -7,7 +7,8 @@
     "build:frontend": "ng build",
     "start:backend": "nest start:dev",
     "build:backend": "nest build",
-    "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\""
+    "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
+    "lint": "ng lint"   <-- LINT SCRIPT IS HERE, ABSOLUTELY NO TYPOS OR COMMENTS
   },
   "keywords": [
     "angular",
