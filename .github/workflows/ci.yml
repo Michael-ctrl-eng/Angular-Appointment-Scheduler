@@ -16,8 +16,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
-          token: ${{ secrets.GITHUB_TOKEN }}
+          node-version: '20'  # <-- UPDATED Node.js version to 20
+          # token: ${{ secrets.GITHUB_TOKEN }}  <-- REMOVED unnecessary token
 
       - name: Clean Install Dependencies
         run: |
@@ -25,7 +25,7 @@ jobs:
           npm cache clean --force
 
       - name: Install Dependencies
-        run: npm install --legacy-peer-deps
+        run: npm install   # <-- REMOVED --legacy-peer-deps
 
       - name: Lint
         run: npm run lint
