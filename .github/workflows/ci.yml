@@ -13,10 +13,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Set up Node.js  # **Full Updated Code - Node.js 16 LTS**
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '16' # **Node.js version set to 16 (Long Term Support)**
 
       - name: Clean Install Dependencies
         run: |
@@ -24,7 +24,7 @@ jobs:
           npm cache clean --force
 
       - name: Install Dependencies # **Full Updated Code - with --legacy-peer-deps**
-        run: npm install --legacy-peer-deps
+        run: npm install --legacy-peer-deps # **Using npm install with --legacy-peer-deps**
 
       - name: Lint
         run: npm run lint
