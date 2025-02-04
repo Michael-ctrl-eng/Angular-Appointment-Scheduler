@@ -33,7 +33,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "prepare": "husky install",
-    "postinstall": "npm install -w=api" <--- **TRAILING COMMA REMOVED HERE - CORRECTED JSON**
+    "postinstall": "npm install -w=api"
   },
   "workspaces": [
     "api",
