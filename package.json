@@ -37,9 +37,9 @@
   },
   "workspaces": [
     "api",
-    "frontend"  <--- **ADDED COMMA HERE!  THIS IS THE FIX!**
+    "frontend"
   ],
-  "private": true, <--- Single "private": true - Correctly placed
+  "private": true,
   "dependencies": {
     "@angular/animations": "^17.2.0",
     "@angular/cdk": "^17.2.0",
