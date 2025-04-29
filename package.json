@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Michael-ctrl-eng/Angular-Appointment-Scheduler"
+    "url": "https://github.com/Michael-ctrl-eng/Angular-Appointment-Scheduler.git"
   },
   "keywords": [
     "angular",
@@ -33,7 +33,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "prepare": "husky install",
-    "postinstall": "npm install -w=api"
+    "postinstall": "if [ -d ./api ]; then npm install -w=api; fi"
   },
   "workspaces": [
     "api",
